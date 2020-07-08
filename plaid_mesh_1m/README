@@ -1,0 +1,6 @@
+Command is
+./run_ucart20z_mz
+
+CPU times reported in outfile are summed over threads,
+and do not represent wall time.
+Result is written to ucart20z_mz

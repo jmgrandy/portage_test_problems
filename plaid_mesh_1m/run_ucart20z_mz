@@ -1,0 +1,32 @@
+#!/bin/tcsh -f
+
+set OVLINP="input_ucart20z_mz"
+set RESULTDIR="ucart20z_mz"
+
+rm -f "${OVLINP}"
+
+cat > "${OVLINP}" <<EOF
+overlink
+bkgmat 1
+elvira 1
+order 2
+clean 1
+donor altmat50
+target ucart20z
+result ${RESULTDIR}
+done
+
+EOF
+
+set cmd="salloc -N 1 -n 36 srun -n 4 ./overlink.ol2 -i ${OVLINP} -threads 9"
+
+echo ${cmd}
+
+${cmd}
+
+echo "Making symlink for VisIt of ${RESULTDIR}/OvlTop.silo to ${RESULTDIR}.silo."
+set OVLTOPLINK=${RESULTDIR}.silo
+
+ln -s ${RESULTDIR}/OvlTop.silo ${OVLTOPLINK}
+
+exit
